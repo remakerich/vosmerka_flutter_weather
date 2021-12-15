@@ -11,7 +11,7 @@ abstract class AppStyles {
       TextStyle(fontWeight: FontWeight.bold, fontSize: 30);
 
   static const temperature =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 60);
+      TextStyle(fontWeight: FontWeight.w500, fontSize: 60);
 
   static const double listItemPadding = 20;
 }

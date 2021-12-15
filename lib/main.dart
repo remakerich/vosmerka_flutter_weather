@@ -6,7 +6,7 @@ void main() {
   runApp(const MyApp());
 }
 
-const List<String> cities = ["Краснодар", "Москва", "Санкт-Петербург", "Омск"];
+const List<String> cities = ["Краснодар", "Москва", "Санкт-Петербург", "Омск", "New Orleans", "New Delhi"];
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

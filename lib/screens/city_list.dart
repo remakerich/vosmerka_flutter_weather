@@ -20,7 +20,7 @@ class CityList extends StatelessWidget {
             padding: const EdgeInsets.all(AppStyles.listItemPadding),
             child: Text(
               city,
-              style: AppStyles.title,
+              style: AppStyles.cityListItem,
             ),
           )),
           onTap: () => Navigator.of(context)

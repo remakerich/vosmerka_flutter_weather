@@ -13,7 +13,18 @@ class CityWeather extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
         if (state is WeatherIsLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return Column(children: [
+            PictureAndWeather(
+                city: state.cityResult.cityName,
+                weatherPicture: state.cityResult.weatherPicture,
+                temperature: state.cityResult.temperature),
+            Row(
+              children: [
+                const Center(child: CircularProgressIndicator()),
+                Text('updating weather')
+              ],
+            )
+          ]);
         }
         if (state is WeatherIsLoaded) {
           return PictureAndWeather(

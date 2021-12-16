@@ -18,21 +18,27 @@ class CityList extends StatelessWidget {
       itemCount: ApiService.cities.length,
       itemBuilder: (context, index) {
         final city = ApiService.cities[index];
-        return ListTile(
-          title: Center(
-              child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(
-              city,
-              style: AppFonts.cityListItem,
-            ),
-          )),
-          onTap: () {
-            weatherBloc.add(FetchWeather(city));
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(11))),
+            tileColor: Colors.grey[100],
+            title: Center(
+                child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                city,
+                style: AppFonts.cityListItem,
+              ),
+            )),
+            onTap: () {
+              weatherBloc.add(FetchWeather(city));
 
-            Navigator.of(context)
-                .pushNamed(CityWeather.routeName, arguments: city);
-          },
+              Navigator.of(context)
+                  .pushNamed(CityWeather.routeName, arguments: city);
+            },
+          ),
         );
       },
     ));

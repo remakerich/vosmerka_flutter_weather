@@ -15,7 +15,8 @@ const List<String> cities = [
   "Санкт-Петербург",
   "Омск",
   "New Orleans",
-  "New Delhi"
+  "New Delhi",
+  "Rome",
 ];
 
 class MyApp extends StatelessWidget {

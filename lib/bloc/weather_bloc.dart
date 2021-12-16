@@ -14,7 +14,7 @@ class WeatherState extends Equatable {
 }
 
 class FetchWeather extends WeatherEvent {
-  final _city;
+  final String _city;
 
   FetchWeather(this._city);
 
@@ -29,7 +29,7 @@ class WeatherIsNotSearched extends WeatherState {}
 class WeatherIsLoading extends WeatherState {}
 
 class WeatherIsLoaded extends WeatherState {
-  final _weather;
+  final City _weather;
   WeatherIsLoaded(this._weather);
 
   City get cityResult => _weather;

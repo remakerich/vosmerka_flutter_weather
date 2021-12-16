@@ -1,6 +1,6 @@
 import 'package:flutter/rendering.dart';
 
-abstract class AppStyles {
+abstract class AppFonts {
   static const degreeSign =
       TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
 
@@ -12,6 +12,4 @@ abstract class AppStyles {
 
   static const temperature =
       TextStyle(fontWeight: FontWeight.w500, fontSize: 60);
-
-  static const double listItemPadding = 20;
 }

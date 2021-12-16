@@ -42,12 +42,20 @@ class WeatherIsLoaded extends WeatherState {
   List<Object?> get props => [_weather];
 }
 
-class WeatherIsNotLoaded extends WeatherState {}
+class WeatherLoadingError extends WeatherState {
+  final City _weather;
+  WeatherLoadingError(this._weather);
+
+  City get cityResult => _weather;
+
+  @override
+  List<Object?> get props => [_weather];
+}
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc(this.weatherRepo) : super(WeatherIsLoading(City(cityName: "")));
 
-  List<City> cachedCities = [];
+  Map<String, City> cachedCities = {};
 
   WeatherRepo weatherRepo;
   WeatherState get initialState => WeatherIsLoading(City(cityName: ""));
@@ -55,52 +63,31 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
     if (event is FetchWeather) {
-      if (cachedCities.map((item) => item.cityName).contains(event._city)) {
-        for (var cachedCity in cachedCities) {
-          if (cachedCity.cityName == event._city) {
-            // retrieved cached data from RAM
-            yield WeatherIsLoading(cachedCity);
+      City city = City(cityName: event._city);
 
-            try {
-              City city = await weatherRepo.getWeather(event._city);
-              cachedCities.remove(cachedCity);
-              cachedCities.add(city);
-              print('weather is fetched from API');
+      if (cachedCities[event._city] != null) {
+        city = cachedCities[event._city]!;
+        yield WeatherIsLoading(city);
 
-              yield WeatherIsLoaded(city);
-            } catch (e) {
-              yield WeatherIsNotLoaded();
-            }
-          }
-        }
-      } else {
-        // if there's no cached data - loading with empty template
-        // with city name, 0 degrees and 'Clouds' picture
-        yield WeatherIsLoading(City(cityName: event._city));
         try {
-          City city = await weatherRepo.getWeather(event._city);
-          cachedCities.add(city);
+          city = await weatherRepo.getWeather(event._city);
+          cachedCities[event._city] = city;
+
           yield WeatherIsLoaded(city);
         } catch (e) {
-          yield WeatherIsNotLoaded();
+          yield WeatherLoadingError(city);
+        }
+      } else {
+        yield WeatherIsLoading(city);
+
+        try {
+          city = await weatherRepo.getWeather(event._city);
+          cachedCities[event._city] = city;
+          yield WeatherIsLoaded(city);
+        } catch (e) {
+          yield WeatherLoadingError(city);
         }
       }
-
-      // yield WeatherIsLoading(City(cityName: "Moscow"));
-      // try {
-      //   if (cachedCities.map((item) => item.cityName).contains(event._city)) {
-      //     for (var cachedCity in cachedCities) {
-      //       if (cachedCity.cityName == event._city) {}
-      //     }
-      //   } else {
-      //     yield WeatherIsLoaded(City(cityName: event._city));
-      //     City city = await weatherRepo.getWeather(event._city);
-      //     cachedCities.add(city);
-      //     yield WeatherIsLoaded(city);
-      //   }
-      // } catch (e) {
-      //   yield WeatherIsNotLoaded();
-      // }
     }
   }
 }

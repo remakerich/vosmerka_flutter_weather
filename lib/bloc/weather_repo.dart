@@ -12,7 +12,7 @@ class WeatherRepo {
     "Омск",
     "Новый Орлеан",
     "Нью-Дели",
-    "Рим",
+    "Копенгаген",
   ];
 
   Future<City> getWeather(String city) async {

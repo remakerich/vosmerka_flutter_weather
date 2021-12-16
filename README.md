@@ -11,7 +11,10 @@ https://www.figma.com/file/GFErbWHf91xg613PUo8ONT/Minimal-Weather-App-(Community
 
 ## Решение
 Приложение разработано для Android. Использовался SDK `Flutter 2.5.1`. Для запуска:
+- `git clone https://github.com/remakerich/vosmerka_flutter_weather.git`
+- `flutter pub get`
 - добавьте файл `assets/api_key.json` как показано ниже в разделе "Экраны"
+- запустите приложение на Android устройстве
 
 Ниже приведен разбор всех условий задания.
 

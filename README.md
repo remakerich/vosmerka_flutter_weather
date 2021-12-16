@@ -10,6 +10,9 @@
 https://www.figma.com/file/GFErbWHf91xg613PUo8ONT/Minimal-Weather-App-(Community)?node-id=0%3A1
 
 ## Решение
+Приложение разработано для Android. Использовался SDK `Flutter 2.5.1`. Для запуска:
+- добавьте файл `assets/api_key.json` как показано ниже в разделе "Экраны"
+
 Ниже приведен разбор всех условий задания.
 
 ## Экраны

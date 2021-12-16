@@ -14,12 +14,11 @@ class CityWeather extends StatelessWidget {
 
     return Scaffold(
       body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
-        if (state is WeatherIsNotSearched) {
-          return Container();
-        } else if (state is WeatherIsLoading) {
+        if (state is WeatherIsLoading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is WeatherIsLoaded) {
-          return WeatherPictureAndData(
+        }
+        if (state is WeatherIsLoaded) {
+          return PictureAndWeather(
               city: city,
               weatherPicture: state.cityResult.weatherPicture,
               temperature: state.cityResult.temperature);
@@ -32,8 +31,8 @@ class CityWeather extends StatelessWidget {
   }
 }
 
-class WeatherPictureAndData extends StatelessWidget {
-  const WeatherPictureAndData(
+class PictureAndWeather extends StatelessWidget {
+  const PictureAndWeather(
       {required this.city,
       required this.weatherPicture,
       required this.temperature,

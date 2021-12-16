@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vosmerka_flutter_weather/bloc/weather_bloc.dart';
-import 'package:vosmerka_flutter_weather/main.dart';
+import 'package:vosmerka_flutter_weather/bloc/weather_repo.dart';
 import 'package:vosmerka_flutter_weather/screens/city_weather.dart';
 import 'package:vosmerka_flutter_weather/styles/styles.dart';
 
@@ -15,9 +15,9 @@ class CityList extends StatelessWidget {
 
     return Scaffold(
         body: ListView.builder(
-      itemCount: cities.length,
+      itemCount: WeatherRepo.cities.length,
       itemBuilder: (context, index) {
-        final city = cities[index];
+        final city = WeatherRepo.cities[index];
         return ListTile(
           title: Center(
               child: Padding(

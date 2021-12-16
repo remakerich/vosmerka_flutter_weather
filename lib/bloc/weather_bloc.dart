@@ -22,10 +22,6 @@ class FetchWeather extends WeatherEvent {
   List<Object?> get props => [_city];
 }
 
-class ResetWeather extends WeatherEvent {}
-
-class WeatherIsNotSearched extends WeatherState {}
-
 class WeatherIsLoading extends WeatherState {}
 
 class WeatherIsLoaded extends WeatherState {
@@ -41,10 +37,10 @@ class WeatherIsLoaded extends WeatherState {
 class WeatherIsNotLoaded extends WeatherState {}
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc(this.weatherRepo) : super(WeatherIsNotSearched());
+  WeatherBloc(this.weatherRepo) : super(WeatherIsLoading());
 
   WeatherRepo weatherRepo;
-  WeatherState get initialState => WeatherIsNotSearched();
+  WeatherState get initialState => WeatherIsLoading();
 
   @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
@@ -56,8 +52,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       } catch (e) {
         yield WeatherIsNotLoaded();
       }
-    } else if (event is ResetWeather) {
-      yield WeatherIsNotSearched();
     }
   }
 }

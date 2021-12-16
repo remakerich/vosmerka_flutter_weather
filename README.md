@@ -54,4 +54,6 @@ to be changed
 
 > Будет плюсом, если приложение будет корректно обрабатывать поворот экрана и обновлять интерфейс соответствующим образом. https://www.figma.com/file/GFErbWHf91xg613PUo8ONT/Minimal-Weather-App-(Community)?node-id=0%3A1
 
-Была реализована обработка поворота экрана в зависимости от `MediaQuery.of(context).orientation`. Ниже приведены скриншоты:
+Была реализована обработка поворота экрана в зависимости от `MediaQuery.of(context).orientation`:
+
+![image](https://user-images.githubusercontent.com/85007290/146358156-3bbbc48c-088d-433b-abf3-c2c3e0179a99.png)

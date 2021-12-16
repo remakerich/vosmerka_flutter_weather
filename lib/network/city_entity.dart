@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:http/http.dart';
-
 class City {
   late String cityName;
   String weatherPicture = 'assets/clouds.svg';
@@ -11,11 +7,10 @@ class City {
     required this.cityName,
   });
 
-  City.fromJson(Response? data, String city) {
-    cityName = city;
-    final json = jsonDecode(data!.body);
+  City.fromJson(Map<String, dynamic> data) {
+    cityName = data['name'];
 
-    switch (json['weather'][0]['main']) {
+    switch (data['weather'][0]['main']) {
       case 'Clouds':
         weatherPicture = 'assets/clouds.svg';
         break;
@@ -26,6 +21,6 @@ class City {
         weatherPicture = 'assets/rain.svg';
     }
 
-    temperature = json['main']['temp'].toInt().toString();
+    temperature = data['main']['temp'].toInt().toString();
   }
 }

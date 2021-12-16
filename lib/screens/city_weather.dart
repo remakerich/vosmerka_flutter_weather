@@ -40,5 +40,3 @@ class CityWeather extends StatelessWidget {
     );
   }
 }
-
-

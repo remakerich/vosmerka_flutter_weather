@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vosmerka_flutter_weather/bloc/weather_repo.dart';
-import 'package:vosmerka_flutter_weather/models/city.dart';
+import 'package:vosmerka_flutter_weather/network/api_service.dart';
+import 'package:vosmerka_flutter_weather/network/city_entity.dart';
 
 class WeatherEvent extends Equatable {
   @override
@@ -53,11 +54,10 @@ class WeatherLoadingError extends WeatherState {
 }
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc(this.weatherRepo) : super(WeatherIsLoading(City(cityName: "")));
+  WeatherBloc() : super(WeatherIsLoading(City(cityName: "")));
 
   Map<String, City> cachedCities = {};
 
-  WeatherRepo weatherRepo;
   WeatherState get initialState => WeatherIsLoading(City(cityName: ""));
 
   @override
@@ -70,7 +70,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         yield WeatherIsLoading(city);
 
         try {
-          city = await weatherRepo.getWeather(event._city);
+          city = await ApiService(Dio(), city: event._city).getWeather();
           cachedCities[event._city] = city;
 
           yield WeatherIsLoaded(city);
@@ -81,7 +81,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         yield WeatherIsLoading(city);
 
         try {
-          city = await weatherRepo.getWeather(event._city);
+          city = await ApiService(Dio(), city: event._city).getWeather();
           cachedCities[event._city] = city;
           yield WeatherIsLoaded(city);
         } catch (e) {

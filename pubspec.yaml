@@ -28,3 +28,4 @@ flutter:
   - assets/clouds.svg
   - assets/rain.svg
   - assets/sun.svg
+  - assets/api_key.json

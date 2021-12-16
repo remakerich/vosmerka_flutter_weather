@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'package:vosmerka_flutter_weather/api/openweather_api.dart';
-import 'dart:convert';
 
 import 'package:vosmerka_flutter_weather/models/city.dart';
 

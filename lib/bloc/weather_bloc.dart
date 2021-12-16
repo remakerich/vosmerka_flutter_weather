@@ -28,24 +28,36 @@ class WeatherIsNotSearched extends WeatherState {}
 
 class WeatherIsLoading extends WeatherState {}
 
-class WeatherIsLoaded extends WeatherState {}
+class WeatherIsLoaded extends WeatherState {
+  final _weather;
+  WeatherIsLoaded(this._weather);
+
+  City get cityResult => _weather;
+
+  @override
+  List<Object?> get props => [_weather];
+}
 
 class WeatherIsNotLoaded extends WeatherState {}
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc(WeatherState initialState, this.weatherRepo)
-      : super(initialState);
+  WeatherBloc(this.weatherRepo) : super(WeatherIsNotSearched());
 
   WeatherRepo weatherRepo;
-
   WeatherState get initialState => WeatherIsNotSearched();
 
+  @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
     if (event is FetchWeather) {
       yield WeatherIsLoading();
       try {
         City city = await weatherRepo.getWeather(event._city);
-      } catch (e) {}
+        yield WeatherIsLoaded(city);
+      } catch (e) {
+        yield WeatherIsNotLoaded();
+      }
+    } else if (event is ResetWeather) {
+      yield WeatherIsNotSearched();
     }
   }
 }

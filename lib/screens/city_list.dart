@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vosmerka_flutter_weather/bloc/weather_bloc.dart';
 import 'package:vosmerka_flutter_weather/main.dart';
 import 'package:vosmerka_flutter_weather/screens/city_weather.dart';
 import 'package:vosmerka_flutter_weather/styles/styles.dart';
@@ -9,6 +11,8 @@ class CityList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final weatherBloc = BlocProvider.of<WeatherBloc>(context);
+
     return Scaffold(
         body: ListView.builder(
       itemCount: cities.length,
@@ -23,8 +27,12 @@ class CityList extends StatelessWidget {
               style: AppStyles.cityListItem,
             ),
           )),
-          onTap: () => Navigator.of(context)
-              .pushNamed(CityWeather.routeName, arguments: city),
+          onTap: () {
+            weatherBloc.add(FetchWeather(city));
+
+            Navigator.of(context)
+                .pushNamed(CityWeather.routeName, arguments: city);
+          },
         );
       },
     ));

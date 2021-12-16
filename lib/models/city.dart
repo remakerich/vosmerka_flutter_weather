@@ -14,20 +14,18 @@ class City {
   City.fromJson(Response? data, String city) {
     cityName = city;
     final json = jsonDecode(data!.body);
-    late String assetName;
 
     switch (json['weather'][0]['main']) {
       case 'Clouds':
-        assetName = 'assets/clouds.svg';
+        weatherPicture = 'assets/clouds.svg';
         break;
       case 'Clear':
-        assetName = 'assets/sun.svg';
+        weatherPicture = 'assets/sun.svg';
         break;
       default:
-        assetName = 'assets/rain.svg';
+        weatherPicture = 'assets/rain.svg';
     }
 
-    weatherPicture = assetName;
     temperature = json['main']['temp'].toInt().toString();
   }
 }

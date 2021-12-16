@@ -39,6 +39,8 @@ class WeatherIsNotLoaded extends WeatherState {}
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc(this.weatherRepo) : super(WeatherIsLoading());
 
+  List<City> cachedCities = [];
+
   WeatherRepo weatherRepo;
   WeatherState get initialState => WeatherIsLoading();
 
@@ -47,8 +49,25 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     if (event is FetchWeather) {
       yield WeatherIsLoading();
       try {
-        City city = await weatherRepo.getWeather(event._city);
-        yield WeatherIsLoaded(city);
+        if (cachedCities.map((item) => item.cityName).contains(event._city)) {
+          for (var cachedCity in cachedCities) {
+            if (cachedCity.cityName == event._city) {
+              print('weather is loaded from RAM');
+              yield WeatherIsLoaded(cachedCity);
+              City city = await weatherRepo.getWeather(event._city);
+              cachedCities.remove(cachedCity);
+              cachedCities.add(city);
+              print('weather is fetched from API');
+
+              yield WeatherIsLoaded(city);
+            }
+          }
+        } else {
+          yield WeatherIsLoaded(City(cityName: event._city));
+          City city = await weatherRepo.getWeather(event._city);
+          cachedCities.add(city);
+          yield WeatherIsLoaded(city);
+        }
       } catch (e) {
         yield WeatherIsNotLoaded();
       }

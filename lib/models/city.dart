@@ -3,10 +3,16 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 class City {
-  late String weatherPicture;
-  late String temperature;
+  late String cityName;
+  String weatherPicture = 'assets/clouds.svg';
+  String temperature = '0';
 
-  City.fromJson(Response? data) {
+  City({
+    required this.cityName,
+  });
+
+  City.fromJson(Response? data, String city) {
+    cityName = city;
     final json = jsonDecode(data!.body);
     late String assetName;
 

@@ -21,8 +21,7 @@ class WeatherRepo {
     final _endpoint =
         'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$_apiKey&units=metric';
     final result = await http.Client().get(Uri.parse(_endpoint));
-    final City weather = City.fromJson(result);
 
-    return weather;
+    return City.fromJson(result, city);
   }
 }

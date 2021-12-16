@@ -10,8 +10,6 @@ class CityWeather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final city = ModalRoute.of(context)!.settings.arguments as String;
-
     return Scaffold(
       body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
         if (state is WeatherIsLoading) {
@@ -19,7 +17,7 @@ class CityWeather extends StatelessWidget {
         }
         if (state is WeatherIsLoaded) {
           return PictureAndWeather(
-              city: city,
+              city: state.cityResult.cityName,
               weatherPicture: state.cityResult.weatherPicture,
               temperature: state.cityResult.temperature);
         }

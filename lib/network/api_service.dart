@@ -14,7 +14,7 @@ abstract class ApiService {
     "Омск",
     "Новый Орлеан",
     "Нью-Дели",
-    "Копенгаген",
+    "Алжир",
   ];
 
   factory ApiService(

@@ -23,7 +23,10 @@ class CityList extends StatelessWidget {
           child: ListTile(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(11))),
-            tileColor: Colors.grey[100],
+            tileColor:
+                MediaQuery.of(context).platformBrightness == Brightness.light
+                    ? Colors.grey[100]
+                    : Colors.black45,
             title: Center(
                 child: Padding(
               padding: const EdgeInsets.all(20),
@@ -35,8 +38,7 @@ class CityList extends StatelessWidget {
             onTap: () {
               weatherBloc.add(FetchWeather(city));
 
-              Navigator.of(context)
-                  .pushNamed(CityWeather.routeName, arguments: city);
+              Navigator.of(context).pushNamed(CityWeather.routeName);
             },
           ),
         );

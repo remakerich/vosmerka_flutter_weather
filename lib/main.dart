@@ -19,15 +19,14 @@ class MyApp extends StatelessWidget {
       create: (context) => WeatherBloc(),
       child: MaterialApp(
         theme: ThemeData(brightness: Brightness.light),
+        darkTheme: ThemeData(brightness: Brightness.dark),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case CityWeather.routeName:
-              return MaterialPageRoute(
-                  settings: settings, builder: (_) => const CityWeather());
+              return MaterialPageRoute(builder: (_) => const CityWeather());
             default:
-              return MaterialPageRoute(
-                  settings: settings, builder: (_) => const CityList());
+              return MaterialPageRoute(builder: (_) => const CityList());
           }
         },
       ),

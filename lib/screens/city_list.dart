@@ -12,6 +12,7 @@ class CityList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final weatherBloc = BlocProvider.of<WeatherBloc>(context);
+    Theme.of(context);
 
     return Scaffold(
         body: ListView.builder(

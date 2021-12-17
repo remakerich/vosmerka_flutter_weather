@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context);
     getApiKey();
     return BlocProvider(
       create: (context) => WeatherBloc(),

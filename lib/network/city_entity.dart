@@ -1,11 +1,7 @@
 class City {
   late String cityName;
-  String weatherPicture = 'assets/clouds.svg';
-  String temperature = '0';
-
-  City({
-    required this.cityName,
-  });
+  late String weatherPicture;
+  late String temperature;
 
   City.fromJson(Map<String, dynamic> data) {
     cityName = data['name'];
@@ -24,7 +20,9 @@ class City {
     temperature = data['main']['temp'].toInt().toString();
   }
 
-  City.emptyCity() {
-    cityName = '';
+  City.emptyCity({String name = ''}) {
+    cityName = name;
+    weatherPicture = 'assets/clouds.svg';
+    temperature = 0.toString();
   }
 }

@@ -40,8 +40,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
   Map<String, City> cachedCities = {};
 
-  void _onFetchWeather(event, emit) async {
-    City city = City(cityName: event._city);
+  void _onFetchWeather(FetchWeather event, emit) async {
+    City city = City.emptyCity(name: event._city);
 
     if (cachedCities[event._city] != null) {
       city = cachedCities[event._city]!;

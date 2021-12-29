@@ -5,6 +5,8 @@ import 'package:vosmerka_flutter_weather/models/city.dart';
 
 part 'api_service.g.dart';
 
+// to build generated code: flutter pub run build_runner build
+
 @RestApi(baseUrl: 'https://api.openweathermap.org/data/2.5/weather')
 abstract class ApiService {
   static const List<String> cities = [

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:vosmerka_flutter_weather/network/api_key_from_assets.dart';
-import 'package:vosmerka_flutter_weather/network/city_entity.dart';
+import 'package:vosmerka_flutter_weather/models/city.dart';
 
 part 'api_service.g.dart';
 

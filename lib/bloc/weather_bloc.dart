@@ -34,7 +34,7 @@ class WeatherLoadingError extends WeatherState {
 }
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc() : super(WeatherIsLoading(City.emptyCity())) {
+  WeatherBloc() : super(WeatherState()) {
     on<FetchWeather>(_onFetchWeather);
   }
 

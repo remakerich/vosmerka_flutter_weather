@@ -5,7 +5,12 @@ import 'package:vosmerka_flutter_weather/models/city.dart';
 
 class WeatherEvent {}
 
-class WeatherState {}
+class WeatherState {
+  final City _weather;
+  WeatherState(this._weather);
+
+  City get cityResult => _weather;
+}
 
 class FetchWeather extends WeatherEvent {
   final String _city;
@@ -13,28 +18,19 @@ class FetchWeather extends WeatherEvent {
 }
 
 class WeatherIsLoading extends WeatherState {
-  final City _weather;
-  WeatherIsLoading(this._weather);
-
-  City get cityResult => _weather;
+  WeatherIsLoading(City weather) : super(weather);
 }
 
 class WeatherIsLoaded extends WeatherState {
-  final City _weather;
-  WeatherIsLoaded(this._weather);
-
-  City get cityResult => _weather;
+  WeatherIsLoaded(City weather) : super(weather);
 }
 
 class WeatherLoadingError extends WeatherState {
-  final City _weather;
-  WeatherLoadingError(this._weather);
-
-  City get cityResult => _weather;
+  WeatherLoadingError(City weather) : super(weather);
 }
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc() : super(WeatherState()) {
+  WeatherBloc() : super(WeatherState(City.emptyCity())) {
     on<FetchWeather>(_onFetchWeather);
   }
 

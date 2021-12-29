@@ -23,4 +23,8 @@ class City {
 
     temperature = data['main']['temp'].toInt().toString();
   }
+
+  City.emptyCity() {
+    cityName = '';
+  }
 }

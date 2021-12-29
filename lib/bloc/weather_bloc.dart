@@ -1,26 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:vosmerka_flutter_weather/network/api_service.dart';
 import 'package:vosmerka_flutter_weather/network/city_entity.dart';
 
-class WeatherEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+class WeatherEvent {}
 
-class WeatherState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+class WeatherState {}
 
 class FetchWeather extends WeatherEvent {
   final String _city;
-
   FetchWeather(this._city);
-
-  @override
-  List<Object?> get props => [_city];
 }
 
 class WeatherIsLoading extends WeatherState {
@@ -28,9 +17,6 @@ class WeatherIsLoading extends WeatherState {
   WeatherIsLoading(this._weather);
 
   City get cityResult => _weather;
-
-  @override
-  List<Object?> get props => [_weather];
 }
 
 class WeatherIsLoaded extends WeatherState {
@@ -38,9 +24,6 @@ class WeatherIsLoaded extends WeatherState {
   WeatherIsLoaded(this._weather);
 
   City get cityResult => _weather;
-
-  @override
-  List<Object?> get props => [_weather];
 }
 
 class WeatherLoadingError extends WeatherState {
@@ -48,45 +31,39 @@ class WeatherLoadingError extends WeatherState {
   WeatherLoadingError(this._weather);
 
   City get cityResult => _weather;
-
-  @override
-  List<Object?> get props => [_weather];
 }
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc() : super(WeatherIsLoading(City(cityName: "")));
+  WeatherBloc() : super(WeatherIsLoading(City.emptyCity())) {
+    on<FetchWeather>(_onFetchWeather);
+  }
 
   Map<String, City> cachedCities = {};
 
-  WeatherState get initialState => WeatherIsLoading(City(cityName: ""));
+  void _onFetchWeather(event, emit) async {
+    City city = City(cityName: event._city);
 
-  @override
-  Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
-    if (event is FetchWeather) {
-      City city = City(cityName: event._city);
+    if (cachedCities[event._city] != null) {
+      city = cachedCities[event._city]!;
+      emit(WeatherIsLoading(city));
 
-      if (cachedCities[event._city] != null) {
-        city = cachedCities[event._city]!;
-        yield WeatherIsLoading(city);
+      try {
+        city = await ApiService(Dio(), city: event._city).getWeather();
+        cachedCities[event._city] = city;
 
-        try {
-          city = await ApiService(Dio(), city: event._city).getWeather();
-          cachedCities[event._city] = city;
+        emit(WeatherIsLoaded(city));
+      } catch (e) {
+        emit(WeatherLoadingError(city));
+      }
+    } else {
+      emit(WeatherIsLoading(city));
 
-          yield WeatherIsLoaded(city);
-        } catch (e) {
-          yield WeatherLoadingError(city);
-        }
-      } else {
-        yield WeatherIsLoading(city);
-
-        try {
-          city = await ApiService(Dio(), city: event._city).getWeather();
-          cachedCities[event._city] = city;
-          yield WeatherIsLoaded(city);
-        } catch (e) {
-          yield WeatherLoadingError(city);
-        }
+      try {
+        city = await ApiService(Dio(), city: event._city).getWeather();
+        cachedCities[event._city] = city;
+        emit(WeatherIsLoaded(city));
+      } catch (e) {
+        emit(WeatherLoadingError(city));
       }
     }
   }

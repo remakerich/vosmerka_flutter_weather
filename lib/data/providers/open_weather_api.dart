@@ -10,7 +10,7 @@ part 'open_weather_api.g.dart';
 
 @RestApi(baseUrl: 'https://api.openweathermap.org/data/2.5/weather')
 abstract class ApiService {
-  static String apiKey = '';
+  static late final String apiKey;
 
   static const List<String> cities = [
     "Краснодар",

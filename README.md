@@ -24,7 +24,7 @@ https://www.figma.com/file/GFErbWHf91xg613PUo8ONT/Minimal-Weather-App-(Community
 > 2. Экран погоды. Отображает данные о погоде по выбранному городу. Можно использовать любое открытое API для загрузки данных.
 
 Требуемые экраны реализованы. Переход на экран погоды осуществляется при нажатии на элемент списка. Переход назад на экран списка городов - нажатием на кнопку "назад" в нижней части экрана.
-   В файле `lib/network/api_service.dart` находится массив из городов.
+   В файле `lib/data/providers/open_weather_api.dart` находится массив из городов.
 
 Для получения данных о погоде использовался API https://openweathermap.org/api.
    API ключ хранится в файле `assets/api_key.json` в следующем формате:
@@ -59,7 +59,7 @@ https://www.figma.com/file/GFErbWHf91xg613PUo8ONT/Minimal-Weather-App-(Community
 
 Попробовал реализовать http запросы к API с помощью данных библиотек.
 
-API ключ загружается в переменную `String apiKey` при запуске приложения и затем используется в файле `api_service.dart` при осуществлении запросов.
+API ключ загружается в переменную `static late final String apiKey` при запуске приложения и затем используется в файле `lib/data/providers/open_weather_api.dart` при осуществлении запросов.
 
 Пользовался данными библиотеками так же в первый раз. До этого использовал стандартный пакет `http`. 
 
@@ -85,6 +85,6 @@ API ключ загружается в переменную `String apiKey` пр
 ## Корректная обработка поворота экрана
 > Будет плюсом, если приложение будет корректно обрабатывать поворот экрана и обновлять интерфейс соответствующим образом. https://www.figma.com/file/GFErbWHf91xg613PUo8ONT/Minimal-Weather-App-(Community)?node-id=0%3A1
 
-В файле `lib/screens/city_weather.dart`, виждете `PictureAndWeather`, я постарался реализовать обработку поворота экрана в зависимости от `MediaQuery.of(context).orientation`:
+В файле `lib/UI/widgets/picture_and_text.dart` я постарался реализовать обработку поворота экрана в зависимости от `MediaQuery.of(context).orientation`:
 
 ![image](https://user-images.githubusercontent.com/85007290/146358156-3bbbc48c-088d-433b-abf3-c2c3e0179a99.png)

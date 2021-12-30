@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vosmerka_flutter_weather/bloc/weather_bloc.dart';
-import 'package:vosmerka_flutter_weather/widgets/weather_and_status.dart';
+import 'package:vosmerka_flutter_weather/UI/widgets/weather_and_status.dart';
+import 'package:vosmerka_flutter_weather/bloc/weather.dart';
 
 class CityWeather extends StatelessWidget {
   const CityWeather({Key? key}) : super(key: key);

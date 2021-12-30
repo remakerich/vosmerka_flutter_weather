@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vosmerka_flutter_weather/fonts/fonts.dart';
+import 'package:vosmerka_flutter_weather/UI/fonts/fonts.dart';
 
 class WeatherText extends StatelessWidget {
   const WeatherText({

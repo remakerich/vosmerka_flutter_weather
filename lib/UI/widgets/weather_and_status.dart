@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vosmerka_flutter_weather/widgets/picture_and_text.dart';
+import 'package:vosmerka_flutter_weather/UI/widgets/picture_and_text.dart';
 
 class WeatherAndStatus extends StatelessWidget {
   const WeatherAndStatus({

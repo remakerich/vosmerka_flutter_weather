@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vosmerka_flutter_weather/bloc/weather_bloc.dart';
-import 'package:vosmerka_flutter_weather/fonts/fonts.dart';
-import 'package:vosmerka_flutter_weather/network/api_service.dart';
-import 'package:vosmerka_flutter_weather/screens/city_weather.dart';
+import 'package:vosmerka_flutter_weather/UI/fonts/fonts.dart';
+import 'package:vosmerka_flutter_weather/UI/screens/city_weather.dart';
+import 'package:vosmerka_flutter_weather/bloc/weather.dart';
+import 'package:vosmerka_flutter_weather/data/providers/open_weather_api.dart';
 
 class CityList extends StatelessWidget {
   const CityList({Key? key}) : super(key: key);

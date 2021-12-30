@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vosmerka_flutter_weather/widgets/text.dart';
+import 'package:vosmerka_flutter_weather/UI/widgets/text.dart';
 
 class PictureAndText extends StatelessWidget {
   const PictureAndText(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vosmerka_flutter_weather/bloc/weather_bloc.dart';
-import 'package:vosmerka_flutter_weather/network/api_key_from_assets.dart';
-import 'package:vosmerka_flutter_weather/screens/city_list.dart';
-import 'package:vosmerka_flutter_weather/screens/city_weather.dart';
+import 'package:vosmerka_flutter_weather/bloc/weather.dart';
+import 'package:vosmerka_flutter_weather/data/providers/open_weather_api.dart';
+import 'UI/screens/city_list.dart';
+import 'UI/screens/city_weather.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getApiKey();
+    ApiService.getApiKey();
+
     return BlocProvider(
       create: (context) => WeatherBloc(),
       child: MaterialApp(

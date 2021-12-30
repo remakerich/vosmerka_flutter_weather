@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:vosmerka_flutter_weather/network/api_service.dart';
-import 'package:vosmerka_flutter_weather/models/city.dart';
+import 'package:vosmerka_flutter_weather/data/models/city.dart';
+import 'package:vosmerka_flutter_weather/data/providers/open_weather_api.dart';
 
 class WeatherEvent {}
 

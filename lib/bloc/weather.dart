@@ -2,64 +2,43 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:vosmerka_flutter_weather/data/models/city.dart';
 import 'package:vosmerka_flutter_weather/data/providers/open_weather_api.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class WeatherEvent {}
-
-class WeatherState {
-  final City _weather;
-  WeatherState(this._weather);
-
-  City get cityResult => _weather;
-}
-
-class FetchWeather extends WeatherEvent {
-  final String _city;
-  FetchWeather(this._city);
-}
-
-class WeatherIsLoading extends WeatherState {
-  WeatherIsLoading(City weather) : super(weather);
-}
-
-class WeatherIsLoaded extends WeatherState {
-  WeatherIsLoaded(City weather) : super(weather);
-}
-
-class WeatherLoadingError extends WeatherState {
-  WeatherLoadingError(City weather) : super(weather);
-}
+part 'weather_event.dart';
+part 'weather_state.dart';
+part 'weather.freezed.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc() : super(WeatherState(City.emptyCity())) {
-    on<FetchWeather>(_onFetchWeather);
+  WeatherBloc() : super(WeatherState.ready(City.emptyCity())) {
+    on<WeatherFetchEvent>(_onFetchWeather);
   }
 
   Map<String, City> cachedCities = {};
 
-  void _onFetchWeather(FetchWeather event, emit) async {
-    City city = City.emptyCity(name: event._city);
+  void _onFetchWeather(WeatherFetchEvent event, emit) async {
+    City city = City.emptyCity(name: event.city);
 
-    if (cachedCities[event._city] != null) {
-      city = cachedCities[event._city]!;
-      emit(WeatherIsLoading(city));
+    if (cachedCities[event.city] != null) {
+      city = cachedCities[event.city]!;
+      emit(WeatherState.loading(city));
 
       try {
-        city = await ApiService(Dio(), city: event._city).getWeather();
-        cachedCities[event._city] = city;
+        city = await ApiService(Dio(), city: event.city).getWeather();
+        cachedCities[event.city] = city;
 
-        emit(WeatherIsLoaded(city));
+        emit(WeatherState.ready(city));
       } catch (e) {
-        emit(WeatherLoadingError(city));
+        emit(WeatherState.error(city));
       }
     } else {
-      emit(WeatherIsLoading(city));
+      emit(WeatherState.loading(city));
 
       try {
-        city = await ApiService(Dio(), city: event._city).getWeather();
-        cachedCities[event._city] = city;
-        emit(WeatherIsLoaded(city));
+        city = await ApiService(Dio(), city: event.city).getWeather();
+        cachedCities[event.city] = city;
+        emit(WeatherState.ready(city));
       } catch (e) {
-        emit(WeatherLoadingError(city));
+        emit(WeatherState.error(city));
       }
     }
   }

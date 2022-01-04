@@ -11,31 +11,32 @@ class CityWeather extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
-        if (state is WeatherIsLoading) {
-          return WeatherAndStatus(
-              isLoaded: false,
-              isError: false,
-              cityName: state.cityResult.cityName,
-              weatherPicture: state.cityResult.weatherPicture,
-              temperature: state.cityResult.temperature);
-        }
-        if (state is WeatherIsLoaded) {
-          return WeatherAndStatus(
-              isLoaded: true,
-              isError: false,
-              cityName: state.cityResult.cityName,
-              weatherPicture: state.cityResult.weatherPicture,
-              temperature: state.cityResult.temperature);
-        }
-        if (state is WeatherLoadingError) {
-          return WeatherAndStatus(
-              isLoaded: false,
-              isError: true,
-              cityName: state.cityResult.cityName,
-              weatherPicture: state.cityResult.weatherPicture,
-              temperature: state.cityResult.temperature);
-        }
-        return Container();
+        return state.when(
+          loading: (loading) {
+            return WeatherAndStatus(
+                isLoaded: false,
+                isError: false,
+                cityName: loading.cityName,
+                weatherPicture: loading.weatherPicture,
+                temperature: loading.temperature);
+          },
+          ready: (result) {
+            return WeatherAndStatus(
+                isLoaded: true,
+                isError: false,
+                cityName: result.cityName,
+                weatherPicture: result.weatherPicture,
+                temperature: result.temperature);
+          },
+          error: (error) {
+            return WeatherAndStatus(
+                isLoaded: false,
+                isError: true,
+                cityName: error.cityName,
+                weatherPicture: error.weatherPicture,
+                temperature: error.temperature);
+          },
+        );
       }),
     );
   }

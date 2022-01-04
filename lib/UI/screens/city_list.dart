@@ -37,8 +37,7 @@ class CityList extends StatelessWidget {
               ),
             )),
             onTap: () {
-              weatherBloc.add(FetchWeather(city));
-
+              weatherBloc.add(WeatherEvent.fetch(city));
               Navigator.of(context).pushNamed(CityWeather.routeName);
             },
           ),

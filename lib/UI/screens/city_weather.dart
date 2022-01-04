@@ -10,7 +10,8 @@ class CityWeather extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
+      body: Builder(builder: (context) {
+        final state = context.watch<WeatherBloc>().state;
         return state.when(
           loading: (loading) {
             return WeatherAndStatus(

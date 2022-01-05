@@ -7,6 +7,7 @@ import 'package:vosmerka_flutter_weather/data/providers/open_weather_api.dart';
 
 class CityList extends StatelessWidget {
   const CityList({Key? key}) : super(key: key);
+
   static const String routeName = '/';
 
   @override

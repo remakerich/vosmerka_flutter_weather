@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:vosmerka_flutter_weather/data/models/city.dart';
 import 'package:vosmerka_flutter_weather/data/providers/open_weather_api.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,6 +9,7 @@ part 'weather_event.dart';
 part 'weather_state.dart';
 part 'weather.freezed.dart';
 
+@lazySingleton
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc() : super(WeatherState.ready(City.emptyCity())) {
     on<WeatherFetchEvent>(_onFetchWeather);

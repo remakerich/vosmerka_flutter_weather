@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:vosmerka_flutter_weather/UI/fonts/fonts.dart';
+import 'package:vosmerka_flutter_weather/bloc/weather.dart';
+import 'package:vosmerka_flutter_weather/utils/service_locator.dart';
 
-class WeatherText extends StatelessWidget {
-  const WeatherText({
-    required this.city,
-    required this.temperature,
-    Key? key,
-  }) : super(key: key);
+class CityNameAndTemperature extends StatelessWidget {
+  CityNameAndTemperature({Key? key}) : super(key: key);
 
-  final String city;
-  final String temperature;
   final String _degreeSign = 'o';
+  final data = locator.get<WeatherBloc>().state.weather;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +15,7 @@ class WeatherText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          city,
+          data.cityName,
           style: AppFonts.cityNameOnWeatherScreen,
           textAlign: TextAlign.center,
         ),
@@ -27,7 +24,7 @@ class WeatherText extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              temperature,
+              data.temperature,
               style: AppFonts.temperature,
               textAlign: TextAlign.center,
             ),

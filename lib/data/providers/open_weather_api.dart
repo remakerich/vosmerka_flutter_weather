@@ -27,8 +27,8 @@ abstract class ApiService {
     required String city,
   }) {
     dio.options = BaseOptions(
-        receiveTimeout: 30000,
-        connectTimeout: 30000,
+        receiveTimeout: 3000,
+        connectTimeout: 3000,
         contentType: 'application/json',
         queryParameters: {
           'q': city,

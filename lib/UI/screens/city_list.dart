@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+ import 'package:flutter/material.dart';
 import 'package:vosmerka_flutter_weather/UI/fonts/fonts.dart';
 import 'package:vosmerka_flutter_weather/UI/screens/city_weather.dart';
 import 'package:vosmerka_flutter_weather/bloc/weather.dart';
 import 'package:vosmerka_flutter_weather/data/providers/open_weather_api.dart';
+import 'package:vosmerka_flutter_weather/utils/service_locator.dart';
 
 class CityList extends StatelessWidget {
   const CityList({Key? key}) : super(key: key);
@@ -12,7 +12,6 @@ class CityList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weatherBloc = BlocProvider.of<WeatherBloc>(context);
     Theme.of(context);
 
     return Scaffold(
@@ -38,7 +37,7 @@ class CityList extends StatelessWidget {
               ),
             )),
             onTap: () {
-              weatherBloc.add(WeatherEvent.fetch(city));
+              locator.get<WeatherBloc>().add(WeatherEvent.fetch(city));
               Navigator.of(context).pushNamed(CityWeather.routeName);
             },
           ),
